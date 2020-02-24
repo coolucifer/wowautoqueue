@@ -1,5 +1,6 @@
 import sys
 import time
+import win32gui
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.QtCore import QThread, pyqtSignal, Qt
@@ -75,17 +76,26 @@ class AntiIdleThread(QThread):
 
 
     def anti_idle(self):
-        wow = WowClassicApp()
+        hWndList = []
+        # win32gui.EnumWindows(lambda hWnd, param: win32gui.GetWindowText(hWnd) == '魔兽世界' and param.append(hWnd), hWndList)
+        def findWindows(hWnd, param):
+            if win32gui.GetWindowText(hWnd) == '魔兽世界':
+                return param.append(hWnd)
+        win32gui.EnumWindows(findWindows, hWndList)
+        wowList = []
+        for hWnd in hWndList:
+            wowList.append(WowClassicApp(hWnd))
 
         # Anti idle
-        anti_idle_interval = 60
+        anti_idle_interval = 10
         anti_idle_timer = anti_idle_interval
         while True:
             self.update_status('防掉线已启动，%s 秒后移动角色...' % anti_idle_timer)
             time.sleep(1)
             anti_idle_timer -= 1
             if anti_idle_timer == 0:
-                wow.antiIdle()
+                for wow in wowList:
+                    wow.antiIdle()
                 anti_idle_timer = anti_idle_interval
 
 

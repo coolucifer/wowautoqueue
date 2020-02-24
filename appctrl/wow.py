@@ -7,6 +7,10 @@ from utils.screenshot import regionMatchesColor
 class WowClassicApp(AppCtrl):
     title = "魔兽世界"
 
+    def __init__(self, hWnd):
+        # super().__init__()
+        self.hWnd = hWnd
+
     def isCharacterSelect(self):
         """Test if in Character Select screen.
         """
