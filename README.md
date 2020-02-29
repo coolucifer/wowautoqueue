@@ -4,7 +4,8 @@
 Forked from: https://github.com/charlee/wowautoqueue
 
 
-该工具仅限Win64下使用。开发环境为Windows 10，Python 3.6.2。
+该工具仅限Win64下使用。开发环境为Windows 10，Python 3.6.2。  
+仅可用于16:9, 非最小化的魔兽世界窗口
 
 ## 开发
 
