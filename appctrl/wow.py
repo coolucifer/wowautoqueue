@@ -17,6 +17,11 @@ class WowClassicApp(AppCtrl):
         rect = self.getRect()
         return regionMatchesColor((rect[0] + 857, rect[1] + 983, 22, 19), (117, 0, 0), 16)
 
+    def isLoginScreen(self):
+        # 1920x1080窗口, (20, 60, 30, 70)区域内颜色为#000
+        rect = self.getRect()
+        return regionMatchesColor((rect[0] + ((rect[2] - rect[0]) / 1936) * 20, rect[1] + ((rect[3] - rect[1]) / 1119) * 60, 10, 10), (0, 0, 0), 16)
+
     def enterGame(self):
         self.activate()
         rect = self.getRect()
